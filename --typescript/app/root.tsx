@@ -59,6 +59,7 @@ import { type Theme, setTheme, getTheme } from './utils/theme.server.ts'
 import { makeTimings, time } from './utils/timing.server.ts'
 import { getToast } from './utils/toast.server.ts'
 import { useOptionalUser, useUser } from './utils/user.ts'
+import SimpleScatterChart from './components/SimpleScatterChart.tsx'
 
 export const links: LinksFunction = () => {
 	return [
@@ -242,12 +243,13 @@ function App() {
 
 	return (
 		<Document nonce={nonce} theme={theme} env={data.ENV}>
+			<SimpleScatterChart />
 			<div className="flex h-screen flex-col justify-between">
 				<header className="container py-6">
 					<nav>
 						<div className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap md:gap-8">
 							<Link to="/">
-								<div className="font-light">epic</div>
+								<div className="font-light">epicxx</div>
 								<div className="font-bold">notes</div>
 							</Link>
 							<div className="ml-auto hidden max-w-sm flex-1 sm:block">
