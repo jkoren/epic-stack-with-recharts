@@ -36,7 +36,7 @@ import { honeypot } from './utils/honeypot.server.ts'
 import { combineHeaders, getDomainUrl } from './utils/misc.tsx'
 import { useNonce } from './utils/nonce-provider.ts'
 import { useRequestInfo } from './utils/request-info.ts'
-import { type Theme, setTheme, getTheme } from './utils/theme.server.ts'
+import { setTheme, getTheme } from './utils/theme.server.ts'
 import { makeTimings, time } from './utils/timing.server.ts'
 import { getToast } from './utils/toast.server.ts'
 
@@ -178,11 +178,9 @@ export async function action({ request }: DataFunctionArgs) {
 function Document({
 	children,
 	nonce,
-	env = {},
 }: {
 	children: React.ReactNode
 	nonce: string
-	env?: Record<string, string>
 }) {
 	return (
 		<html lang="en" className={` h-full overflow-x-hidden`}>
@@ -195,12 +193,7 @@ function Document({
 			</head>
 			<body className="bg-background text-foreground">
 				{children}
-				<script
-					nonce={nonce}
-					dangerouslySetInnerHTML={{
-						__html: `window.ENV = ${JSON.stringify(env)}`,
-					}}
-				/>
+				<script nonce={nonce} />
 				<ScrollRestoration nonce={nonce} />
 				<Scripts nonce={nonce} />
 				<LiveReload nonce={nonce} />
@@ -210,11 +203,10 @@ function Document({
 }
 
 function App() {
-	const data = useLoaderData<typeof loader>()
 	const nonce = useNonce()
 
 	return (
-		<Document nonce={nonce} env={data.ENV}>
+		<Document nonce={nonce}>
 			<SimpleScatterChart />
 		</Document>
 	)
