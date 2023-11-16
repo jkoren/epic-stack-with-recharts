@@ -178,16 +178,14 @@ export async function action({ request }: DataFunctionArgs) {
 function Document({
 	children,
 	nonce,
-	theme = 'light',
 	env = {},
 }: {
 	children: React.ReactNode
 	nonce: string
-	theme?: Theme
 	env?: Record<string, string>
 }) {
 	return (
-		<html lang="en" className={`${theme} h-full overflow-x-hidden`}>
+		<html lang="en" className={` h-full overflow-x-hidden`}>
 			<head>
 				<ClientHintCheck nonce={nonce} />
 				<Meta />
@@ -214,10 +212,9 @@ function Document({
 function App() {
 	const data = useLoaderData<typeof loader>()
 	const nonce = useNonce()
-	const theme = useTheme()
 
 	return (
-		<Document nonce={nonce} theme={theme} env={data.ENV}>
+		<Document nonce={nonce} env={data.ENV}>
 			<SimpleScatterChart />
 		</Document>
 	)
